@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heros-Quest", "Heros-Quest.csproj", "{886A52F6-FAB3-1AFA-D7BC-4BAC951E621C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{886A52F6-FAB3-1AFA-D7BC-4BAC951E621C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886A52F6-FAB3-1AFA-D7BC-4BAC951E621C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886A52F6-FAB3-1AFA-D7BC-4BAC951E621C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886A52F6-FAB3-1AFA-D7BC-4BAC951E621C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5F00240-5026-45E1-8188-E921E6843B26}
+	EndGlobalSection
+EndGlobal
