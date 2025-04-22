@@ -64,7 +64,19 @@ class Graph
         return false;
     }
 
-
-    
+    public int GetDifficulty(string vertex, string targetRoom)
+    {
+        if (adjList.ContainsKey(vertex))
+        {
+            foreach (var (room, difficulty) in adjList[vertex])
+            {
+                if (room == targetRoom)
+                {
+                    return difficulty;
+                }
+            }
+        }
+        throw new Exception($"Room '{targetRoom}' not found in connections of '{vertex}'.");
+    }
 }
 

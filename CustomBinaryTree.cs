@@ -1,344 +1,125 @@
-public class CustomBinaryTree
+using System;
+public class BinarySearchTree
 {
-    public Node? RootNode { get; set; }
-    public int DepthCounter { get; set; }
 
+    public Node Root;
 
-    public CustomBinaryTree()
+    public BinarySearchTree()
     {
-        RootNode = null;
+        Root = null;
     }
 
-    public void Insert(int data, Challenge item)
+    // Insert a new value into the BST
+    public void InsertBalanced(int value, Challenge trial)
     {
-        RootNode = InsertNode(RootNode, data, item);
+        Root = InsertBalanced(Root, value, trial);
     }
 
-    public Node InsertNode(Node node, int data, Challenge item)
+    private Node InsertBalanced(Node root, int value, Challenge trial)
     {
-        if (node == null)
+        if (root == null)
         {
-            return new Node(data, item);
+            root = new Node(value, trial);
+            return root;
         }
 
-        if (data < node.ID)
-        {
-            node.Left = InsertNode(node.Left, data, item);
-        }
-        else if (data > node.ID)
-        {
-            node.Right = InsertNode(node.Right, data, item);
-        }
+        if (value < root.ID)
+            root.Left = InsertBalanced(root.Left, value, trial);
+        else if (value > root.ID)
+            root.Right = InsertBalanced(root.Right, value, trial);
 
-        return node;
+        return root;
     }
 
-    public void InsertIteratively(int data, Challenge thing)
+    public void BalanceTree()
     {
-        if (RootNode == null)
-        {
-            RootNode = new Node(data, thing);
+        List<Node> nodes = new List<Node>();
+        StoreInOrder(Root, nodes);
+        Root = BuildBalancedTree(nodes, 0, nodes.Count - 1); // Rebuild the tree
+    }
+
+    private void StoreInOrder(Node root, List<Node> nodes)
+    {
+        if (root == null)
             return;
-        }
 
-        Node current = RootNode;
-        while (true)
-        {
-            if (data < current.ID)
-            {
-                if (current.Left == null)
-                {
-                    current.Left = new Node(data, thing);
-                    return;
-                }
-                current = current.Left;
-            }
-            else if (data > current.ID)
-            {
-                if (current.Right == null)
-                {
-                    current.Right = new Node(data,thing);
-                    return;
-                }
-                current = current.Right;
-            }
-            else
-            {
-                return;
-            }
-        }
+        StoreInOrder(root.Left, nodes);
+        nodes.Add(root);
+        StoreInOrder(root.Right, nodes);
     }
 
-    public void DeleteNode(Node target)
-    {
-        DeleteNode(target.ID);
-    }
-
-    public void DeleteNode(int target)
-    {
-        RootNode = DeleteNode(RootNode, target);
-    }
-    public Node? DeleteNode(Node currentNode, int target)
-    {
-        if (currentNode == null)
-        {
-            return currentNode;
-        }
-
-        if (target < currentNode.ID)
-        {
-            currentNode.Left = DeleteNode(currentNode.Left, target);//search left
-        }
-        else if (target > currentNode.ID)
-        {
-            currentNode.Right = DeleteNode(currentNode.Right, target);//search right
-        }
-        else
-        {
-            //Found the number
-
-            //Leaf
-            if (currentNode.Left == null && currentNode.Right == null)
-            {
-                return null;
-            }
-
-            // 1 Child
-            if (currentNode.Left == null || currentNode.Right == null)
-            {
-                //Node? result = currentNode.Left == null ? currentNode.Right : currentNode.Left;
-                return currentNode.Left == null ? currentNode.Right : currentNode.Left;
-            }
-
-            // 2 Children
-            currentNode.ID = GetMinValue(currentNode.Right);
-            currentNode.Right = DeleteNode(currentNode.Right, currentNode.ID);
-
-        }
-
-        return currentNode;
-    }
-
-    public bool IsBalanced()
-    {
-        return CheckHeight(RootNode) != -1;
-    }
-
-
-    public int CheckHeight(Node? node)
-    {
-        if (node == null)
-        {
-            return 0;
-        }
-
-        int leftHeight = CheckHeight(node.Left);
-        if (leftHeight == -1)
-        {
-            return -1;
-        }
-
-        int rightHeight = CheckHeight(node.Right);
-        if (rightHeight == -1)
-        {
-            return -1;
-        }
-
-        if (Math.Abs(leftHeight - rightHeight) > 1)
-        {
-            return -1;
-        }
-
-        return Math.Max(leftHeight, rightHeight) + 1;
-    }
-
-public static Node BuildBalancedBST(List<Challenge> sortedList, int start, int end)
+    private Node BuildBalancedTree(List<Node> nodes, int start, int end)
     {
         if (start > end)
             return null;
 
         int mid = (start + end) / 2;
+        Node node = nodes[mid];
 
-        Challenge midChallenge = sortedList[mid];
-
-        Node node = new Node(midChallenge.ID,midChallenge);
-
-        // Recursively build the left and right subtrees
-        node.Left = BuildBalancedBST(sortedList, start, mid - 1);
-        node.Right = BuildBalancedBST(sortedList, mid + 1, end);
+        node.Left = BuildBalancedTree(nodes, start, mid - 1);
+        node.Right = BuildBalancedTree(nodes, mid + 1, end);
 
         return node;
     }
-     public void BalanceBST()
+
+
+
+    public bool Search(int value)
     {
-        List<Challenge> sortedList = new List<Challenge>();
-
-        InOrderTraversal(RootNode, sortedList);
-
-        RootNode = BuildBalancedBST(sortedList, 0, sortedList.Count - 1);
+        return SearchRec(Root, value);
     }
 
-    public void InOrderTraversal(Node? node,List<Challenge> result)
+    private bool SearchRec(Node root, int value)
     {
-        if (node == null)
-        {
-            return;
-        }
-        
-        InOrderTraversal(node.Left,result);
-        result.Add(node.thing);
-        InOrderTraversal(node.Right,result);
-    }
-    public void printInOrderTraversal(){
-        printInOrderTraversal(RootNode);
-    }
-    public void printInOrderTraversal(Node? node)
-    {
-        if (node == null)
-        {
-            return;
-        }
-
-        printInOrderTraversal(node.Left);
-        node.thing.DisplayChallengeInfo();
-        printInOrderTraversal(node.Right);
-    }
-
-    public void DescendingOrder()
-    {
-        DescendingOrder(RootNode);
-    }
-    public void DescendingOrder(Node? node)
-    {
-        if (node == null)
-        {
-            return;
-        }
-
-        DescendingOrder(node.Right);
-        Console.WriteLine(node.ID);
-        DescendingOrder(node.Left);
-    }
-
-
-    public void PostOrderTraversal()
-    {
-        PostOrderTraversal(RootNode);
-    }
-    public void PostOrderTraversal(Node? node)
-    {
-        if (node == null)
-        {
-            return;
-        }
-
-        PostOrderTraversal(node.Left);
-        PostOrderTraversal(node.Right);
-        Console.WriteLine(node.ID);
-    }
-
-
-    public void PreOrderTraversal()
-    {
-        PreOrderTraversal(RootNode);
-    }
-    public void PreOrderTraversal(Node? node)
-    {
-        if (node == null)
-        {
-            return;
-        }
-
-        Console.WriteLine(node.ID);
-        PreOrderTraversal(node.Left);
-        PreOrderTraversal(node.Right);
-    }
-
-    public void LevelOrderTraversal()
-    {
-        if (RootNode == null)
-        {
-            return;
-        }
-
-        Queue<Node> queue = new Queue<Node>();
-        queue.Enqueue(RootNode);
-
-        while (queue.Count > 0)
-        {
-            Node current = queue.Dequeue();
-            Console.WriteLine(current.ID);
-
-            if (current.Left != null)
-            {
-                queue.Enqueue(current.Left);
-            }
-            if (current.Right != null)
-            {
-                queue.Enqueue(current.Right);
-            }
-        }
-    }
-
-    public bool Search(int target)
-    {
-        return SearchRecursive(RootNode, target);
-    }
-
-    public bool SearchRecursive(Node node, int target)
-    {
-        if (node == null)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Error that ID is unused");
+        if (root == null)
             return false;
-        }
-        DepthCounter++;
 
-        //NODE
-        if (target == node.ID)
-        {
-            node.thing.DisplayChallengeInfo();
+        if (root.ID == value)
             return true;
-        }
-        //LEFT
-        if (target < node.ID)
+
+        if (value < root.ID)
+            return SearchRec(root.Left, value);
+
+        return SearchRec(root.Right, value);
+    }
+
+
+    public void InOrderTraversal()
+    {
+
+        InOrderRec(Root);
+    }
+
+    private void InOrderRec(Node root)
+    {
+
+        if (root != null)
         {
-            return SearchRecursive(node.Left, target);
+            InOrderRec(root.Left);
+            Console.WriteLine(root.ID + " ");
+            InOrderRec(root.Right);
         }
-        //RIGHT
+    }
+
+    public Challenge FindClosest(int value)
+    {
+        return FindClosestRec(Root, value, Root).thing;
+    }
+
+    private Node FindClosestRec(Node root, int value, Node closest)
+    {
+        if (root == null)
+            return closest;
+
+        // Update closest if the current node is closer to the target value
+        if (Math.Abs(root.ID - value) < Math.Abs(closest.ID - value))
+            closest = root;
+
+        // Traverse the left or right subtree based on the value
+        if (value < root.ID)
+            return FindClosestRec(root.Left, value, closest);
         else
-        {
-            return SearchRecursive(node.Right, target);
-        }
-            
-        
+            return FindClosestRec(root.Right, value, closest);
     }
 
-    public int GetMinValue(Node? currentNode)
-    {
-        if (currentNode == null)
-        {
-            throw new ArgumentNullException(nameof(currentNode), "Tree is empty.");
-        }
-
-        while (currentNode.Left != null)
-        {
-            currentNode = currentNode.Left;
-        }
-
-        return currentNode.ID;
-    }
-
-
-    public int GetMaxValue()
-    {
-        Node result = RootNode;
-
-        while (result.Right != null)
-        {
-            result = result.Right;
-        }
-        return result.ID;
-    }
 }

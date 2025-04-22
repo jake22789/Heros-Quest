@@ -25,8 +25,9 @@ public class Challenge
         return difficulty;
     }
     public void DisplayChallengeInfo(){
+        Console.Clear();
         Console.WriteLine("you face a challange");
         Console.WriteLine("dificulty : "+difficulty);
-        Console.WriteLine("have at least ___"+stat +" or a "+alternate.name);
+        Console.WriteLine("have at least "+difficulty +" "+stat +" or a "+alternate.name);
     }
 }

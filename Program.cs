@@ -54,51 +54,56 @@ void buildItems(){
  items.Push(new Item("glasses", "",1,"Intelegence"));
 }
 buildItems();
-CustomBinaryTree challanges = new CustomBinaryTree();
+BinarySearchTree challanges = new BinarySearchTree();
 void buildChalanges()
 {
-challanges.Insert(1,new Challenge( EncounterType.Puzzle, 2,new Item("glasses", "",1,"Intelegence") , "Intelegence" ));
-challanges.Insert(2,new Challenge( EncounterType.Combat, 2,new Item("rock", "",3,"Strength") , "Strength" ));
-challanges.Insert(3,new Challenge( EncounterType.Puzzle, 2,new Item("key", "",10,"Intelegence") , "Intelegence" ));
-challanges.Insert(4,new Challenge( EncounterType.Combat, 2,new Item("knife", "",2,"Strength") , "Strength" ));
-challanges.Insert(5,new Challenge( EncounterType.Trap, 2,new Item("cat", "",3,"Agility") , "Agility" ));
-challanges.Insert(6,new Challenge( EncounterType.Puzzle, 2,new Item("freindship", "",5,"Intelegence") , "Intelegence" ));
-challanges.Insert(7,new Challenge( EncounterType.Combat, 2,new Item("anger", "",5,"Strength") , "Strength" ));
-challanges.Insert(8,new Challenge( EncounterType.Combat, 2,new Item("technoblade", "",10,"Strength") , "Strength" ));
-challanges.Insert(9,new Challenge( EncounterType.Puzzle, 2,new Item("sheild", "",10,"Health") , "Health" ));
-challanges.Insert(10,new Challenge( EncounterType.Puzzle, 2,new Item("bottle", "",2,"Intelegence") , "Intelegence" ));
-challanges.Insert(11,new Challenge( EncounterType.Combat, 2,new Item("bow", "",5,"Strength") , "Strength" ));
-challanges.Insert(12,new Challenge( EncounterType.Puzzle, 2,new Item("picture", "",5,"Intelegence") , "Intelegence" ));
-challanges.Insert(13,new Challenge( EncounterType.Puzzle, 2,new Item("hope", "",5,"Health") , "Health" ));
-challanges.Insert(14,new Challenge( EncounterType.Puzzle, 2,new Item("coin", "",5,"Intelegence") , "Intelegence" ));
-challanges.Insert(15,new Challenge( EncounterType.Trap, 2,new Item("gemstone", "",5,"Agility") , "Agility" ));
-challanges.Insert(16,new Challenge( EncounterType.Combat, 2,new Item("armor", "",10,"Health") , "Health" ));
-challanges.Insert(17,new Challenge( EncounterType.Trap, 2,new Item("horse", "",15,"Agility") , "Agility" ));
-challanges.Insert(18,new Challenge( EncounterType.Combat, 2,new Item("gun", "",15,"Strength") , "Strength" ));
-challanges.Insert(19,new Challenge( EncounterType.Combat, 2,new Item("cape", "",100,"Health") , "Health" ));
-challanges.Insert(20,new Challenge( EncounterType.Combat, 2,new Item("health pot", "",20,"Health") , "Health" ));
-       
-challanges.BalanceBST();
-// challanges.PostOrderTraversal();
+challanges.InsertBalanced(1,new Challenge( EncounterType.Puzzle, 1,new Item("glasses", "",1,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(2,new Challenge( EncounterType.Combat, 2,new Item("rock", "",3,"Strength") , "Strength" ));
+challanges.InsertBalanced(3,new Challenge( EncounterType.Puzzle, 3,new Item("key", "",10,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(4,new Challenge( EncounterType.Combat, 4,new Item("knife", "",2,"Strength") , "Strength" ));
+challanges.InsertBalanced(5,new Challenge( EncounterType.Trap, 5,new Item("cat", "",3,"Agility") , "Agility" ));
+challanges.InsertBalanced(6,new Challenge( EncounterType.Puzzle, 6,new Item("freindship", "",5,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(7,new Challenge( EncounterType.Combat, 7,new Item("anger", "",5,"Strength") , "Strength" ));
+challanges.InsertBalanced(8,new Challenge( EncounterType.Combat, 8,new Item("technoblade", "",10,"Strength") , "Strength" ));
+challanges.InsertBalanced(9,new Challenge( EncounterType.Puzzle, 9,new Item("sheild", "",10,"Health") , "Health" ));
+challanges.InsertBalanced(10,new Challenge( EncounterType.Puzzle, 10,new Item("bottle", "",2,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(11,new Challenge( EncounterType.Combat, 11,new Item("bow", "",5,"Strength") , "Strength" ));
+challanges.InsertBalanced(12,new Challenge( EncounterType.Puzzle, 12,new Item("picture", "",5,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(13,new Challenge( EncounterType.Puzzle, 13,new Item("hope", "",5,"Health") , "Health" ));
+challanges.InsertBalanced(14,new Challenge( EncounterType.Puzzle, 14,new Item("coin", "",5,"Intelegence") , "Intelegence" ));
+challanges.InsertBalanced(15,new Challenge( EncounterType.Trap, 15,new Item("gemstone", "",5,"Agility") , "Agility" ));
+challanges.InsertBalanced(16,new Challenge( EncounterType.Combat, 16,new Item("armor", "",10,"Health") , "Health" ));
+challanges.InsertBalanced(17,new Challenge( EncounterType.Trap, 17,new Item("horse", "",15,"Agility") , "Agility" ));
+challanges.InsertBalanced(18,new Challenge( EncounterType.Combat, 18,new Item("gun", "",15,"Strength") , "Strength" ));
+challanges.InsertBalanced(19,new Challenge( EncounterType.Combat, 19,new Item("cape", "",100,"Health") , "Health" ));
+challanges.InsertBalanced(20,new Challenge( EncounterType.Combat, 20,new Item("health pot", "",20,"Health") , "Health" ));
+challanges.InOrderTraversal();
+
+challanges.BalanceTree();
+challanges.InOrderTraversal();
 }
 buildChalanges();
-
 Hero Bob = new Hero();
 
 bool win = false;
-string priviousRoom = "A";
+string targetRoom = "A";
 string currentRoom = "A";
 string input;
+int dificulty = 0;
+Challenge currentChallenge = new Challenge(); 
+
 Random rand = new Random();
 while (win != true)
 {
-    Console.Clear();
+    //Console.Clear();
     Bob.DisplayHero();
     map.PrintRoom(currentRoom);
     Console.WriteLine("what room would you like to enter: ");
     input = Console.ReadLine().ToUpper();
     if (map.checkroom(currentRoom, input.ToUpper()) == true)
     {
+        targetRoom = input.ToUpper();
+        dificulty = map.GetDifficulty(currentRoom, input.ToUpper());
         rand = new Random();
         if(rand.NextDouble() < 0.80 && items != null){
             Item here = items.Pop();
@@ -108,11 +113,21 @@ while (win != true)
                 Bob.AddItem(here);
                 input = currentRoom;
             }
-
-
         }
-        priviousRoom = currentRoom;
-        currentRoom = input;
+        
+        currentChallenge = challanges.FindClosest(dificulty);
+        currentChallenge.DisplayChallengeInfo();
+        Console.WriteLine("do you want to try the challenge? (Y/N)");
+        input = Console.ReadLine().ToUpper();
+        if(input == "Y"){
+            Console.WriteLine("you have passed the challenge");
+        currentRoom = targetRoom;
+        }
+        else{
+            Console.WriteLine("you have failed the challenge");
+        }
+        
+
     }
     else
     {
