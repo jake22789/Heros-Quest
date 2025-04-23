@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 public class Hero
 {
     int strength { get; set;}
@@ -7,7 +6,7 @@ public class Hero
     int intelegence { get; set;}
     int health { get; set;}
 
-    Queue<Item> invintory = new Queue<Item>();
+     public Queue<Item> invintory = new Queue<Item>();
 
     public Hero(){
         strength = 1;
@@ -16,6 +15,12 @@ public class Hero
         health = 20;
         invintory.Enqueue(new Item("sword","deal +5 damage",5,"strength"));
         invintory.Enqueue(new Item("Health Potion","heal 10 damage",10,"health"));
+    }
+    public void damage(int ammount){
+        health -= ammount;
+        if(health <= 0){
+            Console.WriteLine("you have died");
+        }
     }
     public void DisplayHero(){
         foreach(var item in invintory){
@@ -41,9 +46,41 @@ public class Hero
         }
     }
     public void AddItem(Item newthing){
-        if (invintory.Count <= 5){
-            invintory.Dequeue();
+        if (invintory.Count >= 5){
+            Item oldThing = invintory.Dequeue();
+            if (oldThing.statTarget.Equals("Health")){
+                health +=oldThing.effectmod;
+            }
+            if (oldThing.statTarget.Equals("Agility")){
+                agility +=oldThing.effectmod;
+            }
+            if (oldThing.statTarget.Equals("Intelegence")){
+                intelegence +=oldThing.effectmod;
+            }
+            if (oldThing.statTarget.Equals("Strength")){
+                strength +=oldThing.effectmod;
+            }
         }
         invintory.Enqueue(newthing);
+    }
+
+    public int GetStrength()
+    {
+        return strength;
+    }
+
+    public int GetAgility()
+    {
+        return agility;
+    }
+
+    public int GetIntelegence()
+    {
+        return intelegence;
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }

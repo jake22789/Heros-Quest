@@ -111,15 +111,75 @@ public class BinarySearchTree
         if (root == null)
             return closest;
 
-        // Update closest if the current node is closer to the target value
+       
         if (Math.Abs(root.ID - value) < Math.Abs(closest.ID - value))
             closest = root;
 
-        // Traverse the left or right subtree based on the value
+        
         if (value < root.ID)
             return FindClosestRec(root.Left, value, closest);
         else
             return FindClosestRec(root.Right, value, closest);
     }
+
+    public void RemoveChallengeRec(int value)
+    {
+        Root = RemoveChallengeRec(Root, value);
+    }
+
+    private Node RemoveChallengeRec(Node root, int value)
+    {
+        if (root == null)
+            return root;
+
+        // Traverse the tree to find the node to remove
+        if (value < root.ID)
+            root.Left = RemoveChallengeRec(root.Left, value);
+        else if (value > root.ID)
+            root.Right = RemoveChallengeRec(root.Right, value);
+        else
+        {
+            // Node with only one child or no child
+            if (root.Left == null)
+                return root.Right;
+            else if (root.Right == null)
+                return root.Left;
+
+            // Node with two children: Get the in-order successor (smallest in the right subtree)
+            Node successor = FindMin(root.Right);
+
+            // Copy the successor's data to this node
+            root.ID = successor.ID;
+            root.thing = successor.thing;
+
+            // Delete the successor
+            root.Right = RemoveChallengeRec(root.Right, successor.ID);
+        }
+
+        return root;
+    }
+
+    // Helper function to find the minimum value node in a subtree
+    private Node FindMin(Node root)
+    {
+        Node current = root;
+
+        // Loop to find the leftmost leaf
+        while (current.Left != null)
+        {
+            current = current.Left;
+        }
+
+        return current;
+    }
+    public bool IsEmpty(){
+        if (Root == null)
+            return true;
+        else
+            return false;
+    }
+
+
+
 
 }
