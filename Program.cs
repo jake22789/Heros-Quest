@@ -78,10 +78,8 @@ void buildChalanges()
     challanges.InsertBalanced(18, new Challenge(EncounterType.Combat, 18, new Item("gun", "", 15, "Strength"), "Strength"));
     challanges.InsertBalanced(19, new Challenge(EncounterType.Combat, 19, new Item("cape", "", 100, "Health"), "Health"));
     challanges.InsertBalanced(20, new Challenge(EncounterType.Combat, 20, new Item("health pot", "", 20, "Health"), "Health"));
-    challanges.InOrderTraversal();
-
     challanges.BalanceTree();
-    challanges.InOrderTraversal();
+    
 }
 buildChalanges();
 Hero Bob = new Hero();
@@ -118,10 +116,11 @@ while (win != true)
         targetRoom = input.ToUpper();
         dificulty = map.GetDifficulty(currentRoom, input.ToUpper());
         rand = new Random();
-        if (rand.NextDouble() < 0.60 && items.Count == 0 && !IsRoomVisited(targetRoom, dificulty))
+        if (rand.NextDouble() < 6.0 && items.Count != 0 && IsRoomVisited(targetRoom, dificulty))
         {
             Item here = items.Pop();
-            Console.WriteLine("there is an Item here the :" + here.name + "would you like this item? :");
+            Console.Clear();
+            Console.WriteLine("there is an Item here the :" + here.name + " would you like this item? :");
             input = Console.ReadLine().ToUpper();
             if (input == "Y")
             {

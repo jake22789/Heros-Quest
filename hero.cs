@@ -9,9 +9,9 @@ public class Hero
      public Queue<Item> invintory = new Queue<Item>();
 
     public Hero(){
-        strength = 1;
-        agility = 1;
-        intelegence = 1;
+        strength = 5;
+        agility = 5;
+        intelegence = 5;
         health = 20;
         invintory.Enqueue(new Item("sword","deal +5 damage",5,"strength"));
         invintory.Enqueue(new Item("Health Potion","heal 10 damage",10,"health"));
@@ -23,24 +23,28 @@ public class Hero
         }
     }
     public void DisplayHero(){
+        var strength_ = strength; 
+        var agility_ = agility;
+        var intelegence_ = intelegence;
+        var health_ = health;
         foreach(var item in invintory){
             if(item.statTarget.Equals("strength")){
-                strength += item.effectmod;
+                 strength_ += item.effectmod;
             }
             if(item.statTarget.Equals("health")){
-                health += item.effectmod;
+                 health_ += item.effectmod;
             }
             if(item.statTarget.Equals("intelegence")){
-                intelegence += item.effectmod;
+                 intelegence_ += item.effectmod;
             }
             if(item.statTarget.Equals("agility")){
-                agility += item.effectmod;
+                 agility_ += item.effectmod;
             }
         }
-        Console.WriteLine("Strength :  "+strength);
-        Console.WriteLine("Agility :  "+agility);
-        Console.WriteLine("Intelegence :  "+intelegence);
-        Console.WriteLine( "Health :  "+ health);
+        Console.WriteLine("Strength :  "+strength_);
+        Console.WriteLine("Agility :  "+agility_);
+        Console.WriteLine("Intelegence :  "+intelegence_);
+        Console.WriteLine( "Health :  "+ health_);
         foreach(var item in invintory){
             Console.WriteLine(item.name +": "+item.description);
         }
