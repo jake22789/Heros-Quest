@@ -13,8 +13,8 @@ public class Hero
         agility = 5;
         intelegence = 5;
         health = 20;
-        invintory.Enqueue(new Item("sword","deal +5 damage",5,"strength"));
-        invintory.Enqueue(new Item("Health Potion","heal 10 damage",10,"health"));
+        invintory.Enqueue(new Item("sword","deal +5 damage",5,"Strength"));
+        invintory.Enqueue(new Item("Health Potion","heal 10 damage",10,"Health"));
     }
     public void damage(int ammount){
         health -= ammount;
